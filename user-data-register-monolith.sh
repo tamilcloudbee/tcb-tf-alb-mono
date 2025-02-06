@@ -54,7 +54,8 @@ mysql -e "USE tamilcloudbee; CREATE TABLE IF NOT EXISTS students_enquiry (
 cd /var/www/html
 rm -rf *   # Remove the default Apache welcome page
 git clone https://github.com/tamilcloudbee/tcb-web-app.git .  # Replace with your Git repo URL
-
+cat register/register-index-mon0lith.html >  register/index.html
+rm -rf register/register-index-mon0lith.html
 # Set correct permissions
 chown -R www-data:www-data /var/www/html
 
