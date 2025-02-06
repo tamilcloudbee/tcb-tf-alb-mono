@@ -56,7 +56,6 @@ rm -rf *   # Remove the default Apache welcome page
 git clone https://github.com/tamilcloudbee/tcb-web-app.git .  # Replace with your Git repo URL
 cat register/register-index-mon0lith.html >  register/index.html
 rm -rf register/register-index-mon0lith.html
-
 # Set correct permissions
 chown -R www-data:www-data /var/www/html
 
@@ -99,16 +98,8 @@ def register():
 
     return jsonify({'success': True, 'message': 'Enquiry submitted successfully!'}), 200
 
-@app.route('/get-enquiries', methods=['GET'])
-def get_enquiries():
-    cursor = conn.cursor(dictionary=True)
-    cursor.execute("SELECT * FROM students_enquiry")
-    enquiries = cursor.fetchall()
-    cursor.close()
-    return jsonify(enquiries)
-
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)  # Change port to 5000 to avoid conflict with Apache
+    app.run(host='0.0.0.0', port=80)
 EOF
 
 # Install Flask for Python
@@ -116,26 +107,3 @@ pip3 install Flask
 
 # Start the Python application (Flask app)
 python3 /var/www/html/enquiry.py &
-
-# Configure Apache as a reverse proxy for Flask (port 5000)
-cat <<EOF > /etc/apache2/sites-available/000-default.conf
-<VirtualHost *:80>
-    ServerAdmin webmaster@localhost
-    DocumentRoot /var/www/html
-    
-    ProxyPass /flaskapp http://127.0.0.1:5000
-    ProxyPassReverse /flaskapp http://127.0.0.1:5000
-
-    # Other Apache settings can go here
-</VirtualHost>
-EOF
-
-# Enable required Apache modules
-sudo a2enmod proxy
-sudo a2enmod proxy_http
-
-# Restart Apache to apply the changes
-sudo systemctl restart apache2
-
-# Done
-echo "Setup complete. Apache is running, Flask app is running on port 5000."
