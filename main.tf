@@ -39,7 +39,7 @@ module "ec2_b" {
   source              = "./modules/ec2"
   instance_type       = "t2.micro"
   public_subnet_id    = module.vpc_a.public_subnet_2_id
-  user_data           = file("user-data-register.sh")
+  user_data           = file("user-data-register-monolith.sh")
   key_name            = var.key_name
   env_name            = "dev_a"
   security_group_id   = module.sg_a.security_group_id
