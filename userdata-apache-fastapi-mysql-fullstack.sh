@@ -3,8 +3,7 @@
 exec > /var/log/userdata.log 2>&1
 
 echo "Starting user-data script execution..."
-ENQ_REGISTER_ENDPOINT="api/enquiry-register/"
-ENQ_VIEW_ENDPOINT="api/enquiries/"
+
 ALB_DNS_ENDPOINT=${ALB_DNS_ENDPOINT}
 
 # Function to retry a command up to 5 times with backoff
@@ -65,7 +64,7 @@ CREATE TABLE IF NOT EXISTS tcb_enquiry (
 # Clone and deploy website
 echo "Cloning website repository..."
 rm -rf /var/www/html/*
-git clone https://github.com/tamilcloudbee/tcb-web-alb-app /var/www/html
+git clone https://github.com/tamilcloudbee/tcb-web-app /var/www/html
 chown -R www-data:www-data /var/www/html
 chmod -R 755 /var/www/html
 
@@ -240,10 +239,8 @@ sleep 60
 
 PUBLIC_IP=$(curl ifconfig.me)
 
-sudo sed -i "s/ALB-DNS-URL/${ALB_DNS_ENDPOINT}/g" /var/www/html/register/index.html
-sudo sed -i "s/ALB-DNS-URL/${ALB_DNS_ENDPOINT}/g" /var/www/html/admin/index.html
+sudo sed -i "s/your-alb-url.com/${ALB_DNS_ENDPOINT}/g" /var/www/html/register/index.html
+sudo sed -i "s/your-alb-url.com/${ALB_DNS_ENDPOINT}/g" /var/www/html/admin/index.html
 
-sudo sed -i "s/ENQ_REGISTER_ENDPOINT/${ENQ_REGISTER_ENDPOINT}/g" /var/www/html/register/index.html
-sudo sed -i "s/ENQ_VIEW_ENDPOINT/${ENQ_VIEW_ENDPOINT}/g" /var/www/html/admin/index.html
 
 echo "User-data script execution completed."
