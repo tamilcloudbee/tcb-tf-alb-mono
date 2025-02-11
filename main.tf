@@ -25,7 +25,7 @@ module "ec2_a" {
   source              = "./modules/ec2"
   instance_type       = "t2.micro"
   public_subnet_id    = module.vpc_a.public_subnet_1_id
-  user_data           = templatefile("userdata-apache-fastapi-mysql-fullstack.sh", { ALB_DNS_EP = module.alb.alb_dnsname })
+  user_data           = templatefile("userdata-apache-fastapi-mysql-fullstack.sh", { ALB_DNS_ENDPOINT = module.alb.alb_dnsname })
   key_name            = var.key_name
   env_name            = "dev_a"
   security_group_id   = module.sg_a.security_group_id

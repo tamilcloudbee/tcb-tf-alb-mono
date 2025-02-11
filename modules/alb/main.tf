@@ -49,7 +49,8 @@ resource "aws_lb_listener" "http" {
 resource "aws_lb_listener_rule" "listener_rules" {
   for_each = {
     "register" = ["/register*", "/register/*"],
-    "admin"    = ["/admin*", "/admin/*"]
+    "admin"    = ["/admin*", "/admin/*"],
+    "api"      = ["/api/enquiry-register/", "/api/enquiry-register"]
   }
 
   listener_arn = aws_lb_listener.http.arn

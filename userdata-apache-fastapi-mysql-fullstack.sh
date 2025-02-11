@@ -5,7 +5,8 @@ exec > /var/log/userdata.log 2>&1
 echo "Starting user-data script execution..."
 ENQ_REGISTER_ENDPOINT="api/enquiry-register/"
 ENQ_VIEW_ENDPOINT="api/enquiries/"
-ALB_DNS_ENDPOINT=${ALB_DNS_EP}
+ALB_DNS_ENDPOINT=${ALB_DNS_ENDPOINT}
+
 # Function to retry a command up to 5 times with backoff
 retry_command() {
     local retries=5
