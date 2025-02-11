@@ -18,27 +18,26 @@ variable "public_subnet_ids" {
   type        = list(string)
 }
 
-variable "security_group_ids" {
-  description = "List of security group IDs"
-  type        = list(string)
-}
 
 variable "env_name" {
   description = "Environment name"
   type        = string
 }
 
+/*
 variable "main_instance_ids" {
   description = "Map of main EC2 instance IDs"
   type        = map(string)
 }
+*/
 
-variable "admin_instance_ids" {
-  description = "Map of admin EC2 instance IDs"
-  type        = map(string)
+variable "security_groups" {
+  description = "alb Security group"
+  type        = string
+
 }
 
-variable "register_instance_ids" {
-  description = "Map of register EC2 instance IDs"
-  type        = map(string)
+variable "instance_id" {
+  description = "The ID of the instance to attach to the ALB target group"
+  type        = string
 }
