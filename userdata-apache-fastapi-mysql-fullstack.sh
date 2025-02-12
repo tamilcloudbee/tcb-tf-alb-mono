@@ -211,10 +211,11 @@ cat <<EOF > /etc/apache2/sites-available/000-default.conf
     </Directory>
 
     # Reverse proxy FastAPI
-    ProxyPass /api http://127.0.0.1:8000/
-    ProxyPassReverse /api http://127.0.0.1:8000/
+    ProxyPass /api http://127.0.0.1:8000/api
+    ProxyPassReverse /api http://127.0.0.1:8000/api
 
 </VirtualHost>
+
 EOF
 
 # Enable necessary Apache modules and restart Apache
